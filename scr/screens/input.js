@@ -62,7 +62,7 @@ const InputScreen = (props) => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" backgroundColor="#008786" />
+      <StatusBar barStyle="light-content" backgroundColor="#008786" />
       <View style={styles.header}>
         <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 16}}>
           Set Countdown
@@ -103,7 +103,7 @@ const InputScreen = (props) => {
               onChangeText={hoursInputHandler}
               value={hours}
             />
-            <Text style={{fontSize: 16, fontWeight: 'bold', color: '#008786'}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold', color: '#008786'}}>
               {' '}
               :{' '}
             </Text>
@@ -117,7 +117,7 @@ const InputScreen = (props) => {
               onChangeText={minutesInputHandler}
               value={minutes}
             />
-            <Text style={{fontSize: 16, fontWeight: 'bold', color: '#008786'}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold', color: '#008786'}}>
               {' '}
               :{' '}
             </Text>
@@ -167,16 +167,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   input: {
-    width: 50,
+    width: 60,
     color: '#008786',
     backgroundColor: '#fff',
     borderColor: '#008786',
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 2,
+    borderRadius: 5,
     textAlign: 'center',
     fontSize: 16,
     fontWeight: 'bold',
-    height: 50,
+    height: 60,
     borderWidth: 1,
-    marginHorizontal: 5,
   },
   button: {
     marginHorizontal: 30,

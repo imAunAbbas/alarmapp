@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,19 @@ import {
 } from 'react-native';
 
 import CountDown from 'react-native-countdown-component';
+/* This library's seperator and running props are not working */
 
-const TimerScreen = () => {
+const TimerScreen = (props) => {
+  const [run, setRun] = useState(true);
+
+  const handleTimer = () => {
+    console.log('Pause is pressed');
+    setRun(false);
+  };
+
   return (
     <>
-      <StatusBar barStyle="dark-content" backgroundColor="#008786" />
+      <StatusBar barStyle="light-content" backgroundColor="#008786" />
       <View style={styles.header}>
         <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 16}}>
           Countdown Timer
@@ -37,10 +45,16 @@ const TimerScreen = () => {
           until={60 * 10 + 10}
           size={30}
           onFinish={() => alert('Finished')}
-          digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: '#008786'}}
+          digitStyle={{
+            backgroundColor: '#FFF',
+            borderWidth: 2,
+            borderColor: '#008786',
+          }}
           digitTxtStyle={{color: '#008786'}}
           timeToShow={['H', 'M', 'S']}
           timeLabels={{h: 'HH', m: 'MM', s: 'SS'}}
+          timeLabelStyle={{color: '#008786', fontWeight: 'bold'}}
+          runnig={run} // not pausing the timer
         />
         <View
           style={{
@@ -51,7 +65,7 @@ const TimerScreen = () => {
           <TouchableOpacity
             activeOpacity={0.6}
             style={styles.button}
-            onPress={() => console.log('Stop is pressed')}>
+            onPress={handleTimer}>
             <Text style={{color: '#fff', fontSize: 16}}>Stop</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -74,18 +88,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#008786',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  input: {
-    width: 50,
-    color: '#008786',
-    backgroundColor: '#fff',
-    borderColor: '#008786',
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: 'bold',
-    height: 50,
-    borderWidth: 1,
-    marginHorizontal: 5,
   },
   button: {
     marginHorizontal: 30,
