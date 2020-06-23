@@ -2,7 +2,8 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import Start from './scr/screens/start';
-import Main from './scr/screens/main';
+import Input from './scr/screens/input';
+import Timer from './scr/screens/timer';
 
 const MainStack = createStackNavigator(
   {
@@ -12,8 +13,14 @@ const MainStack = createStackNavigator(
         headerShown: false,
       }),
     },
-    Main: {
-      screen: Main,
+    Input: {
+      screen: Input,
+      navigationOptions: () => ({
+        headerShown: false,
+      }),
+    },
+    Timer: {
+      screen: Timer,
       navigationOptions: () => ({
         headerShown: false,
       }),
