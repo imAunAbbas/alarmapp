@@ -7,6 +7,8 @@ import {
   StyleSheet,
 } from 'react-native';
 
+import CountDown from 'react-native-countdown-component';
+
 const TimerScreen = () => {
   return (
     <>
@@ -31,6 +33,15 @@ const TimerScreen = () => {
           }}>
           Countdown Timer is running
         </Text>
+        <CountDown
+          until={60 * 10 + 10}
+          size={30}
+          onFinish={() => alert('Finished')}
+          digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: '#008786'}}
+          digitTxtStyle={{color: '#008786'}}
+          timeToShow={['H', 'M', 'S']}
+          timeLabels={{h: 'HH', m: 'MM', s: 'SS'}}
+        />
         <View
           style={{
             alignItems: 'center',
@@ -80,7 +91,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     marginTop: 15,
     width: 60,
-    height: 40,
+    height: 35,
     backgroundColor: '#008786',
     alignItems: 'center',
     justifyContent: 'center',
