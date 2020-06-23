@@ -26,10 +26,16 @@ i.e. main screen after certain ammount of time */
 
   return (
     <>
-      <StatusBar barStyle="dark-content" backgroundColor="#4B416B" />
+      <StatusBar barStyle="dark-content" backgroundColor="#008786" />
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <ActivityIndicator size="large" color="#4B416B" />
-        <Text style={{color: '#4B416B', fontSize: 18, marginTop: 10}}>
+        <ActivityIndicator size="large" color="#008786" />
+        <Text
+          style={{
+            color: '#008786',
+            fontSize: 18,
+            fontWeight: 'bold',
+            marginTop: 10,
+          }}>
           Loading Timer App...
         </Text>
       </View>
