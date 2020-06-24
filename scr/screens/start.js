@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, Text, StatusBar, ActivityIndicator, Platform} from 'react-native';
+import {View, Text, StatusBar, ActivityIndicator, Alert} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const StartScreen = (props) => {
@@ -12,7 +12,7 @@ i.e. main screen after certain ammount of time */
 
   const nav = async () => {
     try {
-      const value = await AsyncStorage.getItem('@storage_Key');
+      const value = await AsyncStorage.getItem('@timer');
       if (value !== null) {
         // value previously stored
         props.navigation.replace('Timer');
@@ -20,7 +20,7 @@ i.e. main screen after certain ammount of time */
         props.navigation.replace('Input');
       }
     } catch (e) {
-      console.log(e);
+      Alert.alert('Error', e.toString());
     }
   };
 
@@ -36,7 +36,7 @@ i.e. main screen after certain ammount of time */
             fontWeight: 'bold',
             marginTop: 10,
           }}>
-          Loading Timer App...
+          Starting Countdown Timer App..
         </Text>
       </View>
     </>

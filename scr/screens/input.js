@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Alert,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const InputScreen = (props) => {
   const [hours, setHours] = useState('');
@@ -36,9 +37,12 @@ const InputScreen = (props) => {
   };
 
   const startTimer = () => {
-    const hour = parseInt(hours);
-    const min = parseInt(minutes);
-    const sec = parseInt(seconds);
+    const hour = Number(hours);
+    const min = Number(minutes);
+    const sec = Number(seconds);
+
+    /* Here, "parseInt()" is not working. It returns NaN.
+    So used "Number()" instead to convert string to number. */
 
     if (!hour && !min && !sec) {
       Alert.alert('Empty', 'Please enter time values first');
@@ -53,11 +57,25 @@ const InputScreen = (props) => {
       return;
     }
     Keyboard.dismiss();
-    // Here, save the values in "asyncStorage".
+    const timer = hour * 3600000 + min * 60000 + sec * 1000;
+    saveTimer(timer);
     setHours('');
     setMinutes('');
     setSeconds('');
     props.navigation.navigate('Timer');
+  };
+
+  /* "AsyncStorage" saves the values in the form of strings.
+    So always convert values to string before saving into it. */
+
+  const saveTimer = async (timer) => {
+    const date = Date.parse(Date());
+    const val = timer + date;
+    try {
+      await AsyncStorage.setItem('@timer', val.toString());
+    } catch (e) {
+      Alert.alert('Error', e.toString());
+    }
   };
 
   return (
@@ -96,6 +114,7 @@ const InputScreen = (props) => {
             <TextInput
               style={styles.input}
               blurOnSubmit
+              placeholder="HH"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="number-pad"
@@ -110,6 +129,7 @@ const InputScreen = (props) => {
             <TextInput
               style={styles.input}
               blurOnSubmit
+              placeholder="MM"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="number-pad"
@@ -124,6 +144,7 @@ const InputScreen = (props) => {
             <TextInput
               style={styles.input}
               blurOnSubmit
+              placeholder="SS"
               autoCapitalize="none"
               autoCorrect={false}
               keyboardType="number-pad"
