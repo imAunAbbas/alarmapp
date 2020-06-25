@@ -57,8 +57,10 @@ const InputScreen = (props) => {
       return;
     }
     Keyboard.dismiss();
+    const date = Date.parse(Date());
     const timer = hour * 3600000 + min * 60000 + sec * 1000;
-    saveTimer(timer);
+    const val = timer + date;
+    saveTimer(val);
     setHours('');
     setMinutes('');
     setSeconds('');
@@ -68,9 +70,7 @@ const InputScreen = (props) => {
   /* "AsyncStorage" saves the values in the form of strings.
     So always convert values to string before saving into it. */
 
-  const saveTimer = async (timer) => {
-    const date = Date.parse(Date());
-    const val = timer + date;
+  const saveTimer = async (val) => {
     try {
       await AsyncStorage.setItem('@timer', val.toString());
     } catch (e) {

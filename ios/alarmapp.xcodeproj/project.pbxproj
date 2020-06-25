@@ -63,6 +63,7 @@
 		89315656F2ED4FE8965152D6 /* libPods-alarmapp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-alarmapp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		912F1C1E7228CEFC5E5FDF49 /* Pods-alarmapp-alarmappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alarmapp-alarmappTests.release.xcconfig"; path = "Target Support Files/Pods-alarmapp-alarmappTests/Pods-alarmapp-alarmappTests.release.xcconfig"; sourceTree = "<group>"; };
 		A8E292022276F38D40EEA818 /* Pods-alarmapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alarmapp.release.xcconfig"; path = "Target Support Files/Pods-alarmapp/Pods-alarmapp.release.xcconfig"; sourceTree = "<group>"; };
+		E4ABA27624A4924500214617 /* alarmapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = alarmapp.entitlements; path = alarmapp/alarmapp.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FCB124C82F059C91AA20EA5A /* Pods-alarmapp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alarmapp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-alarmapp-tvOSTests/Pods-alarmapp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +126,7 @@
 		13B07FAE1A68108700A75B9A /* alarmapp */ = {
 			isa = PBXGroup;
 			children = (
+				E4ABA27624A4924500214617 /* alarmapp.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -161,7 +163,6 @@
 				80B2CE6ECC5473677FFCC175 /* Pods-alarmapp-tvOSTests.debug.xcconfig */,
 				FCB124C82F059C91AA20EA5A /* Pods-alarmapp-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -292,7 +293,13 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 227KCJCW5U;
 						LastSwiftMigration = 1120;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -630,6 +637,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 227KCJCW5U;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -657,6 +665,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 227KCJCW5U;
 				INFOPLIST_FILE = alarmapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

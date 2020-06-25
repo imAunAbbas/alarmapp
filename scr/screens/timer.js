@@ -8,6 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import {withInAppNotification} from 'react-native-in-app-notification';
 import CountDown from 'react-native-countdown-component';
 
 const TimerScreen = (props) => {
@@ -58,6 +59,17 @@ const TimerScreen = (props) => {
     props.navigation.replace('Input');
   };
 
+  const notify = () => {
+    try {
+      props.showNotification({
+        title: 'Timeout',
+        message: 'The notification has been triggered',
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#008786" />
@@ -84,7 +96,7 @@ const TimerScreen = (props) => {
         <CountDown
           until={time} // <-- Time in seconds
           size={30}
-          onFinish={() => Alert.alert('Finished', 'Countdown Time is finished')}
+          onFinish={notify}
           digitStyle={{
             backgroundColor: '#fff',
             borderWidth: 2,
@@ -126,4 +138,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TimerScreen;
+export default withInAppNotification(TimerScreen);
