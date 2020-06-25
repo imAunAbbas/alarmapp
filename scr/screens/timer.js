@@ -9,15 +9,11 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {withInAppNotification} from 'react-native-in-app-notification';
-import CountDown from 'react-native-countdown-component';
 
 const TimerScreen = (props) => {
   // const [current, setCurrent] = useState();
   // const [value, setValue] = useState(0);
-  const [time, setTime] = useState(10);
-  // const [sec, setSec] = useState(0);
-  // const [min, setMin] = useState(0);
-  // const [hour, setHour] = useState(0);
+  const [time, setTime] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(timerValue, 1000);
@@ -31,12 +27,10 @@ const TimerScreen = (props) => {
       if (value !== null) {
         const temp = Number(value);
         if (temp > current) {
-          setTime((temp - current) / 1000); // only 1st statement executing
-          // convertHMS();
+          setTime((temp - current) / 1000);
         } else if (temp == current) {
           setTime(0);
-          // Alert.alert('Time up', 'timer is over');
-          // generate notification here.
+          notify();
         } else if (temp < current) {
           deleteTimer();
           props.navigation.replace('Input');
@@ -63,7 +57,7 @@ const TimerScreen = (props) => {
     try {
       props.showNotification({
         title: 'Timeout',
-        message: 'The notification has been triggered',
+        message: 'Your countdown is finished',
       });
     } catch (e) {
       console.log(e.message);
@@ -93,20 +87,30 @@ const TimerScreen = (props) => {
           }}>
           Countdown Timer is running
         </Text>
-        <CountDown
-          until={time} // <-- Time in seconds
-          size={30}
-          onFinish={notify}
-          digitStyle={{
-            backgroundColor: '#fff',
-            borderWidth: 2,
-            borderColor: '#008786',
-          }}
-          digitTxtStyle={{color: '#008786'}}
-          timeToShow={['D', 'H', 'M', 'S']}
-          timeLabels={{d: 'DD', h: 'HH', m: 'MM', s: 'SS'}}
-          timeLabelStyle={{color: '#008786', fontWeight: 'bold'}}
-        />
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+          }}>
+          <View style={styles.view}>
+            <Text style={styles.text}>{Math.floor(time / 3600)}</Text>
+          </View>
+          <Text style={{fontSize: 20, fontWeight: 'bold', color: '#008786'}}>
+            {' '}
+            :{' '}
+          </Text>
+          <View style={styles.view}>
+            <Text style={styles.text}>{Math.floor((time % 3600) / 60)}</Text>
+          </View>
+          <Text style={{fontSize: 20, fontWeight: 'bold', color: '#008786'}}>
+            {' '}
+            :{' '}
+          </Text>
+          <View style={styles.view}>
+            <Text style={styles.text}>{Math.floor((time % 3600) % 60)}</Text>
+          </View>
+        </View>
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.button}
@@ -126,6 +130,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#008786',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  view: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 60,
+    height: 60,
+    backgroundColor: '#fff',
+    borderColor: '#008786',
+    borderRadius: 5,
+    borderWidth: 2,
+  },
+  text: {
+    color: '#008786',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   button: {
     marginHorizontal: 30,

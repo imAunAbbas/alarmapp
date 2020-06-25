@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     borderColor: '#008786',
     borderRadius: 5,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     height: 60,
     borderWidth: 2,
