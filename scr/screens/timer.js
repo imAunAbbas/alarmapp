@@ -6,37 +6,37 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-  ActivityIndicator,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import CountDown from 'react-native-countdown-component';
-/* This library's seperator and running props are not working */
 
 const TimerScreen = (props) => {
-  const [loading, setLoading] = useState(true);
-  const [time, setTime] = useState(0);
+  // const [current, setCurrent] = useState();
+  // const [value, setValue] = useState(0);
+  const [time, setTime] = useState(10);
+  // const [sec, setSec] = useState(0);
+  // const [min, setMin] = useState(0);
+  // const [hour, setHour] = useState(0);
 
   useEffect(() => {
-    console.log('in useEffect');
-    timerValue();
-    setLoading(false);
-  }, [loading]);
+    const interval = setInterval(timerValue, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const timerValue = async () => {
-    const current = Date.parse(Date());
     try {
+      const current = Date.parse(Date());
       const value = await AsyncStorage.getItem('@timer');
       if (value !== null) {
-        console.log(value); // <-- log
         const temp = Number(value);
         if (temp > current) {
-          setTime((temp - current) / 1000);
-          // show the countdown time
+          setTime((temp - current) / 1000); // only 1st statement executing
+          // convertHMS();
         } else if (temp == current) {
           setTime(0);
-          // generate notification.
+          // Alert.alert('Time up', 'timer is over');
+          // generate notification here.
         } else if (temp < current) {
-          // delete async storage value.
           deleteTimer();
           props.navigation.replace('Input');
         }
@@ -57,27 +57,6 @@ const TimerScreen = (props) => {
     setTime(0);
     props.navigation.replace('Input');
   };
-
-  if (loading) {
-    return (
-      <>
-        {console.log('in loading')}
-        <StatusBar barStyle="light-content" backgroundColor="#008786" />
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            opacity: 0.5,
-          }}>
-          <ActivityIndicator size="large" color="#008786" />
-          <Text style={{color: '#008786', fontSize: 16, marginTop: 10}}>
-            Please wait...
-          </Text>
-        </View>
-      </>
-    );
-  }
 
   return (
     <>
@@ -112,8 +91,8 @@ const TimerScreen = (props) => {
             borderColor: '#008786',
           }}
           digitTxtStyle={{color: '#008786'}}
-          timeToShow={['H', 'M', 'S']}
-          timeLabels={{h: 'HH', m: 'MM', s: 'SS'}}
+          timeToShow={['D', 'H', 'M', 'S']}
+          timeLabels={{d: 'DD', h: 'HH', m: 'MM', s: 'SS'}}
           timeLabelStyle={{color: '#008786', fontWeight: 'bold'}}
         />
         <TouchableOpacity
