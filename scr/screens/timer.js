@@ -8,7 +8,6 @@ import {
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {withInAppNotification} from 'react-native-in-app-notification';
 
 const TimerScreen = (props) => {
   // const [current, setCurrent] = useState();
@@ -54,14 +53,7 @@ const TimerScreen = (props) => {
   };
 
   const notify = () => {
-    try {
-      props.showNotification({
-        title: 'Timeout',
-        message: 'Your countdown is finished',
-      });
-    } catch (e) {
-      console.log(e.message);
-    }
+    Alert.alert('Time Up', 'Your countdown time is over');
   };
 
   return (
@@ -111,6 +103,28 @@ const TimerScreen = (props) => {
             <Text style={styles.text}>{Math.floor((time % 3600) % 60)}</Text>
           </View>
         </View>
+        <View
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+          }}>
+          <View style={styles.view2}>
+            <Text style={styles.text}>HH</Text>
+          </View>
+          <Text style={{fontSize: 20, fontWeight: 'bold', color: '#008786'}}>
+            {'   '}
+          </Text>
+          <View style={styles.view2}>
+            <Text style={styles.text}>MM</Text>
+          </View>
+          <Text style={{fontSize: 20, fontWeight: 'bold', color: '#008786'}}>
+            {'   '}
+          </Text>
+          <View style={styles.view2}>
+            <Text style={styles.text}>SS</Text>
+          </View>
+        </View>
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.button}
@@ -141,6 +155,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
   },
+  view2: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 60,
+    borderColor: '#008786',
+  },
   text: {
     color: '#008786',
     fontSize: 18,
@@ -157,4 +177,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withInAppNotification(TimerScreen);
+export default TimerScreen;
