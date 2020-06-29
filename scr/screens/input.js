@@ -9,6 +9,7 @@ import {
   Keyboard,
   StyleSheet,
   Alert,
+  Platform,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -42,6 +43,10 @@ const InputScreen = (props) => {
     const hour = Number(hours);
     const min = Number(minutes);
     const sec = Number(seconds);
+    
+    if (Platform.OS === 'ios') {
+      Notification.requestPermissions(); // for iOS
+    }
 
     /* Here, "parseInt()" is not working. It returns NaN.
     So used "Number()" instead to convert string to number. */
@@ -78,7 +83,7 @@ const InputScreen = (props) => {
       Notification.localNotificationSchedule({
         title: 'Countdown ended',
         message: 'Your countdown timer is ended',
-        number: 15,
+        number: 10, // aap badge counter
         date: new Date(val),
         color: '#008786',
         repeatType: 'minute', // to cancel repeat, handle it with a function.
