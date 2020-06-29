@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import Notification from 'react-native-push-notification';
+
 const InputScreen = (props) => {
   const [hours, setHours] = useState('');
   const [minutes, setMinutes] = useState('');
@@ -60,11 +62,11 @@ const InputScreen = (props) => {
     const date = Date.parse(Date());
     const timer = hour * 3600000 + min * 60000 + sec * 1000;
     const val = timer + date;
-    saveTimer(val);
+    saveTimer(val, timer);
     setHours('');
     setMinutes('');
     setSeconds('');
-    props.navigation.navigate('Timer');
+    props.navigation.replace('Timer');
   };
 
   /* "AsyncStorage" saves the values in the form of strings.
@@ -73,6 +75,14 @@ const InputScreen = (props) => {
   const saveTimer = async (val) => {
     try {
       await AsyncStorage.setItem('@timer', val.toString());
+      Notification.localNotificationSchedule({
+        title: 'Countdown ended',
+        message: 'Your countdown timer is ended',
+        number: 15,
+        date: new Date(val),
+        color: '#008786',
+        repeatType: 'minute', // to cancel repeat, handle it with a function.
+      });
     } catch (e) {
       Alert.alert('Error', e.toString());
     }
@@ -171,6 +181,12 @@ const InputScreen = (props) => {
               onPress={startTimer}>
               <Text style={{color: '#fff', fontSize: 16}}>Start</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.6}
+              style={styles.button}
+              onPress={() => alert('delete timer is pressed')}>
+              <Text style={{color: '#fff', fontSize: 16}}>Delete</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -200,7 +216,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   button: {
-    marginHorizontal: 30,
+    marginHorizontal: 10,
     marginTop: 15,
     width: 60,
     height: 35,
