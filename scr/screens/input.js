@@ -86,7 +86,7 @@ const InputScreen = (props) => {
         number: 10, // aap badge counter
         date: new Date(val),
         color: '#008786',
-        repeatType: 'minute', // to cancel repeat, handle it with a function.
+        // repeatType: 'minute', // to cancel repeat, handle it with a function.
       });
     } catch (e) {
       Alert.alert('Error', e.toString());
